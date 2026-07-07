@@ -1,0 +1,107 @@
+<?php
+include ('Include\config.php'); // Include database connection
+
+session_start(); // Start the session to store user data
+
+$error = ''; // Initialize the error variable
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vusername'], $_POST['vpassword'])) {
+    // Sanitize user input
+    $user = htmlspecialchars(trim($_POST['vusername']));
+    $pass = $_POST['vpassword'];
+
+    // Use prepared statements to prevent SQL injection
+    $stmt = $con->prepare("SELECT * FROM vendor WHERE username = ?");
+    $stmt->bind_param("s", $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($pass, $row['password'])) {  // Successful login
+            $_SESSION['vendor_id'] = $row['vendor_id']; // Use database value for accuracy
+            echo '<pre>';
+            print_r($_SESSION['vendor_id']);
+            echo '</pre>';
+            header("Location: /AgriHub/AgriHub/index.php"); // Redirect to dashboard or main page
+            exit();
+        } else {
+            // Invalid credentials
+            $error = "Invalid username or password.";
+        }
+    } else {
+        // Invalid credentials
+        $error = "Invalid username or password.";
+    }
+
+    $stmt->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/img-01.png" alt="IMG">
+                </div>
+
+                <!-- Form with POST method -->
+                <form  method="POST" class="login100-form validate-form">
+                    <span class="login100-form-title">Member Login</span>
+
+                    <!-- Display Error Message -->
+                    <?php if ($error): ?>
+                        <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+                    <?php endif; ?>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" name="vusername" placeholder="Enter Username" required>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="password" name="vpassword" placeholder="Enter Password" required>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" type="submit">Login</button>
+                    </div>
+                    <div class="text-center p-t-136" style="padding-top: 50px;">
+                        <a class="txt2" href="/AgriHub/AgriHub/Farmer/farmer-login.php">
+                            Login as Farmer<br>
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                        <a class="txt2" href="/AgriHub/AgriHub/admin/index.php">
+                            Login as Admin<br>
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                        <a class="txt2" href="usignup.html">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

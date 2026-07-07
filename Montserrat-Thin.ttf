@@ -1,0 +1,126 @@
+
+    <!-- Header Section Begin yg cantik -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> muhdsoleh7399@gmail.com</li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                       <div class="header__top__right">
+                          <?php if (isset($_SESSION['username']) && !empty($_SESSION['username'])): ?>
+                           <div class="header__top__right__auth">
+                              <a href="#"><i class="fa fa-user"></i> Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                              <a href="/AgriHub/User/logout-user.php"><i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                         <?php else: ?>
+                            <div class="header__top__right__auth">
+                               <a href="/AgriHub/User/user-login.php"><i class="fa fa-user"></i> Login</a>
+                           </div>
+                        <?php endif; ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            
+                            <li><a href="./index.php">Home</a></li>
+                            <li><a href="./shop-grid2.php">Shop</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                            <?php if (isset($_SESSION['username']) && !empty($_SESSION['username'])): ?>
+                            <li><a href="/AgriHub/User/profile-page.php">Pages</a></li>
+                            <?php endif; ?>
+                                    
+                                    
+                               
+                            
+                            
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                       
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End  yang cantik -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>Categories</span>
+                        </div>
+                        <ul>
+                            <li><a href="#">Fruit</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Banana</a></li>
+                            <li><a href="#">Watermelon</a></li>
+                            <li><a href="#">Pineapple</a></li>
+                            <li><a href="#">Papaya</a></li>
+                            <li><a href="#">Rambutan</a></li>
+                            <li><a href="#">Tomato</a></li>
+                            <li><a href="#">Onion</a></li>
+                            <li><a href="#">Chilli</a></li>
+                            <li><a href="#">Cucumber</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+60 11 1173 8656</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    
